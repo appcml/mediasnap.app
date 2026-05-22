@@ -8,144 +8,113 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0d0d12;
-      --card: #16161f;
-      --card2: #1e1e2a;
-      --accent: #e63946;
-      --text: #f0f0f5;
-      --muted: #888;
-      --border: rgba(255,255,255,0.07);
-      --r: 12px;
-    }
+    :root{--bg:#0d0d12;--card:#16161f;--card2:#1e1e2a;--accent:#e63946;--text:#f0f0f5;--border:rgba(255,255,255,0.07);--r:12px}
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
-
     .page-wrap{display:flex;gap:20px;max-width:1200px;margin:0 auto;padding:0 16px}
     .ad-side{width:160px;flex-shrink:0;padding-top:20px}
     .ad-side-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:600px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-lr;font-size:.65rem;color:#333;position:sticky;top:20px}
     .main-col{flex:1;min-width:0}
     .wrap{max-width:820px;margin:0 auto}
-
-    header{padding:22px 0 16px;display:flex;align-items:center;justify-content:space-between}
-    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;letter-spacing:-0.5px}
+    header{padding:18px 0 14px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.5px}
     .logo span{color:var(--accent)}
-    .hbadge{font-size:.7rem;background:rgba(230,57,70,.12);color:var(--accent);border:1px solid rgba(230,57,70,.25);padding:4px 12px;border-radius:20px}
-
-    .hero{text-align:center;padding:8px 0 28px}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,2.8vw,1.8rem);font-weight:800;line-height:1.2;letter-spacing:-0.5px;margin-bottom:8px}
+    .hbadge{font-size:.68rem;background:rgba(230,57,70,.12);color:var(--accent);border:1px solid rgba(230,57,70,.25);padding:4px 12px;border-radius:20px}
+    .hero{text-align:center;padding:6px 0 22px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:800;line-height:1.2;letter-spacing:-0.3px;margin-bottom:7px}
     .hero h1 em{color:var(--accent);font-style:normal}
-    .hero p{color:#888;font-size:.83rem;max-width:420px;margin:0 auto 22px;line-height:1.6}
-
-    .converter-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:660px;margin:0 auto}
-    .input-row{display:flex;gap:10px;margin-bottom:14px}
-    .url-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:40px;padding:11px 18px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;transition:border-color .2s}
+    .hero p{color:#777;font-size:.78rem;max-width:400px;margin:0 auto 20px;line-height:1.6}
+    .converter-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;max-width:660px;margin:0 auto}
+    .input-row{display:flex;gap:10px;margin-bottom:12px}
+    .url-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:40px;padding:10px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
     .url-input::placeholder{color:#555}
     .url-input:focus{border-color:rgba(230,57,70,.5)}
-    .btn-convert{background:var(--accent);color:#fff;border:none;border-radius:40px;padding:11px 22px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .2s,transform .2s;white-space:nowrap}
+    .btn-convert{background:var(--accent);color:#fff;border:none;border-radius:40px;padding:10px 20px;font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;cursor:pointer;transition:background .2s,transform .2s;white-space:nowrap}
     .btn-convert:hover{background:#c1121f;transform:scale(1.02)}
     .btn-convert:disabled{background:#444;cursor:not-allowed;transform:none}
-
-    .type-chips{display:flex;gap:8px;margin-bottom:0}
-    .chip{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:7px 14px;font-size:.8rem;cursor:pointer;transition:all .15s;color:#aaa}
+    .type-chips{display:flex;gap:8px}
+    .chip{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:.78rem;cursor:pointer;transition:all .15s;color:#aaa}
     .chip.active{background:rgba(230,57,70,.15);border-color:rgba(230,57,70,.4);color:var(--accent);font-weight:500}
-
-    .site-detected{display:none;align-items:center;gap:8px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;padding:8px 14px;font-size:.82rem;color:#00c896;margin-bottom:14px}
-    .site-dot{width:7px;height:7px;background:#00c896;border-radius:50%;flex-shrink:0}
-
-    #result-area{display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:18px}
-    .media-preview{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+    .site-detected{display:none;align-items:center;gap:8px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;padding:7px 12px;font-size:.8rem;color:#00c896;margin-bottom:12px}
+    .site-dot{width:6px;height:6px;background:#00c896;border-radius:50%;flex-shrink:0}
+    #result-area{display:none;margin-top:18px;border-top:1px solid var(--border);padding-top:16px}
+    .media-preview{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
     .thumb{width:110px;height:70px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--card2)}
     .media-info{flex:1;min-width:0}
-    .media-title{font-family:'Syne',sans-serif;font-size:.93rem;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .media-sub{font-size:.76rem;color:#888}
-
-    .formats-title{font-size:.73rem;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-    .formats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+    .media-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .media-sub{font-size:.74rem;color:#888}
+    .meta-box{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:16px;position:relative}
+    .meta-title-label{font-size:.7rem;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:.78rem}
+    .meta-label{color:#888}
+    .meta-value{color:var(--text);font-weight:500;text-align:right;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .meta-desc{font-size:.75rem;color:#aaa;line-height:1.5;margin-top:8px;border-top:1px solid var(--border);padding-top:8px}
+    .btn-copy{background:rgba(230,57,70,.15);border:1px solid rgba(230,57,70,.3);color:var(--accent);border-radius:6px;padding:5px 12px;font-size:.74rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:10px;transition:background .2s}
+    .btn-copy:hover{background:rgba(230,57,70,.25)}
+    .formats-title{font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .formats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:8px}
     .fmt-btn{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;color:var(--text);font-family:'DM Sans',sans-serif}
     .fmt-btn:hover{border-color:rgba(230,57,70,.5);background:rgba(230,57,70,.06)}
-    .fmt-label{font-size:.86rem;font-weight:500;display:block;margin-bottom:2px}
-    .fmt-type{font-size:.7rem;color:#888}
+    .fmt-label{font-size:.84rem;font-weight:500;display:block;margin-bottom:2px}
+    .fmt-type{font-size:.68rem;color:#888}
     .fmt-type.audio{color:#e63946}
     .fmt-type.video{color:#a78bfa}
-
-    #progress{display:none;text-align:center;padding:14px 0 0}
-    .prog-bar{background:var(--card2);border-radius:20px;height:4px;overflow:hidden;margin:10px 0 6px}
+    #progress{display:none;text-align:center;padding:12px 0 0}
+    .prog-bar{background:var(--card2);border-radius:20px;height:4px;overflow:hidden;margin:8px 0 6px}
     .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#ff6b6b);border-radius:20px;animation:slide 1.8s ease-in-out infinite;width:50%}
     @keyframes slide{0%{margin-left:-60%;width:60%}100%{margin-left:110%;width:60%}}
-    .prog-txt{font-size:.8rem;color:#888}
-
-    .err{display:none;background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.25);color:#ff6b6b;border-radius:10px;padding:11px 14px;font-size:.86rem;margin-top:12px}
+    .prog-txt{font-size:.78rem;color:#888}
+    .err{display:none;background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.25);color:#ff6b6b;border-radius:10px;padding:10px 14px;font-size:.84rem;margin-top:12px}
     .spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle;margin-right:6px}
     @keyframes rot{to{transform:rotate(360deg)}}
-
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:36px 0 0}
-    .feat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px}
-    .feat-icon{font-size:1.4rem;margin-bottom:8px}
-    .feat h3{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:4px}
-    .feat p{font-size:.76rem;color:#888;line-height:1.5}
-
-    .ad-mid{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:250px;display:flex;align-items:center;justify-content:center;margin:30px 0;position:relative}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:30px 0 0}
+    .feat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+    .feat-icon{font-size:1.3rem;margin-bottom:7px}
+    .feat h3{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:3px}
+    .feat p{font-size:.74rem;color:#888;line-height:1.5}
+    .ad-mid{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:250px;display:flex;align-items:center;justify-content:center;margin:28px 0;position:relative}
     .ad-tag{position:absolute;top:6px;right:10px;font-size:.6rem;color:#444}
-
-    .sites{margin:30px 0}
-    .sites h2{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:14px;text-align:center}
-    .site-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-    .site-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:.8rem;color:#aaa}
-
-    footer{border-top:1px solid var(--border);padding:22px 0;text-align:center;font-size:.74rem;color:#555;line-height:1.9}
+    .sites{margin:28px 0}
+    .sites h2{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:12px;text-align:center}
+    .site-list{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+    .site-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:.76rem;color:#aaa}
+    footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:.72rem;color:#555;line-height:1.9}
     footer a{color:#555;text-decoration:none}
     footer a:hover{color:var(--accent)}
-
     @media(max-width:900px){.ad-side{display:none}}
     @media(max-width:540px){.input-row{flex-direction:column}.btn-convert,.url-input{border-radius:10px}}
   </style>
 </head>
 <body>
-
 <div class="page-wrap">
-
   <div class="ad-side">
-    <div class="ad-side-box">
-      <!-- ANUNCIO LATERAL IZQUIERDO 160×600 -->
-      Anuncio 160×600
-    </div>
+    <div class="ad-side-box"><!-- ANUNCIO LATERAL IZQUIERDO 160×600 -->Anuncio 160×600</div>
   </div>
-
   <div class="main-col">
   <div class="wrap">
-
     <header>
       <div class="logo">Media<span>Snap</span></div>
       <div class="hbadge">GRATIS · SIN REGISTRO</div>
     </header>
-
     <section class="hero">
-      <h1>Descarga <em>video y audio</em><br>de cualquier sitio</h1>
+      <h1>Descarga <em>video y audio</em> de cualquier sitio</h1>
       <p>Pega el enlace, elige el formato y descarga al instante. Compatible con TikTok, Instagram, Twitter y más.</p>
     </section>
-
     <div class="converter-box">
       <div class="input-row">
-        <input class="url-input" id="urlInput" type="url"
-          placeholder="Pega aquí el enlace del video..."
-          autocomplete="off" oninput="detectSite(this.value)" />
+        <input class="url-input" id="urlInput" type="url" placeholder="Pega aquí el enlace del video..." autocomplete="off" oninput="detectSite(this.value)"/>
         <button class="btn-convert" id="btnConvert" onclick="doConvert()">Convertir</button>
       </div>
-
       <div class="site-detected" id="siteDetected">
         <div class="site-dot"></div>
         <span id="siteLabel"></span>
       </div>
-
       <div class="type-chips">
         <div class="chip active" id="chipMP3" onclick="setChip('mp3')">🎵 MP3</div>
         <div class="chip" id="chipMP4" onclick="setChip('mp4')">🎬 MP4</div>
         <div class="chip" id="chipBoth" onclick="setChip('both')">↓ Ambos</div>
       </div>
-
       <div class="err" id="errMsg"></div>
-
       <div id="result-area">
         <div class="media-preview">
           <img class="thumb" id="resThumbnail" src="" alt="thumbnail"/>
@@ -154,16 +123,23 @@
             <div class="media-sub" id="resMeta"></div>
           </div>
         </div>
+        <div class="meta-box" id="metaBox" style="display:none">
+          <div class="meta-title-label">Metadatos del video</div>
+          <div class="meta-row"><span class="meta-label">Título</span><span class="meta-value" id="metaTitle"></span></div>
+          <div class="meta-row"><span class="meta-label">Canal</span><span class="meta-value" id="metaUploader"></span></div>
+          <div class="meta-row"><span class="meta-label">Duración</span><span class="meta-value" id="metaDuration"></span></div>
+          <div class="meta-row"><span class="meta-label">Vistas</span><span class="meta-value" id="metaViews"></span></div>
+          <div class="meta-desc" id="metaDesc"></div>
+          <button class="btn-copy" onclick="copyMeta()">📋 Copiar metadatos</button>
+        </div>
         <div class="formats-title">Elige formato</div>
         <div class="formats-grid" id="formatsGrid"></div>
       </div>
-
       <div id="progress">
         <div class="prog-bar"><div class="prog-fill"></div></div>
         <div class="prog-txt">Procesando, espera un momento…</div>
       </div>
     </div>
-
     <div class="sites">
       <h2>Sitios compatibles</h2>
       <div class="site-list">
@@ -178,41 +154,32 @@
         <div class="site-pill">+1000 sitios más</div>
       </div>
     </div>
-
     <div class="features">
       <div class="feat"><div class="feat-icon">⚡</div><h3>Descarga rápida</h3><p>Sin colas ni esperas.</p></div>
       <div class="feat"><div class="feat-icon">🎵</div><h3>Audio MP3</h3><p>Alta calidad 192kbps.</p></div>
       <div class="feat"><div class="feat-icon">🎬</div><h3>Video HD</h3><p>360p, 480p, 720p y 1080p.</p></div>
       <div class="feat"><div class="feat-icon">🔒</div><h3>Sin registro</h3><p>Solo pega y descarga.</p></div>
     </div>
-
     <div class="ad-mid">
       <span class="ad-tag">PUBLICIDAD</span>
       <!-- ANUNCIO CUADRADO 300×250 -->
       <span style="font-size:.73rem;color:#333">[Anuncio 300×250]</span>
     </div>
-
     <footer>
       <p>MediaSnap © 2025 · Herramienta gratuita de conversión multimedia</p>
       <p><a href="terminos.html">Términos</a> &nbsp;·&nbsp; <a href="privacidad.html">Privacidad</a> &nbsp;·&nbsp; <a href="dmca.html">DMCA</a></p>
       <p style="margin-top:8px;font-size:.66rem">Este servicio no almacena archivos. Solo facilita la conversión de medios públicamente accesibles.</p>
     </footer>
-
   </div>
   </div>
-
   <div class="ad-side">
-    <div class="ad-side-box">
-      <!-- ANUNCIO LATERAL DERECHO 160×600 -->
-      Anuncio 160×600
-    </div>
+    <div class="ad-side-box"><!-- ANUNCIO LATERAL DERECHO 160×600 -->Anuncio 160×600</div>
   </div>
-
 </div>
-
 <script>
   const API = "https://mediasnap-backend-4fad.onrender.com";
   let selectedType = "mp3";
+  let currentMeta = {};
 
   const SITES = [
     { match: /tiktok\.com/,             name: "TikTok detectado ✓" },
@@ -254,7 +221,31 @@
 
   function fmtDur(s) {
     if (!s) return "";
-    return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+    const h = Math.floor(s/3600);
+    const m = Math.floor((s%3600)/60);
+    const sec = s%60;
+    if (h > 0) return `${h}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+    return `${m}:${String(sec).padStart(2,"0")}`;
+  }
+
+  function fmtViews(n) {
+    if (!n) return "";
+    if (n >= 1000000) return (n/1000000).toFixed(1)+"M vistas";
+    if (n >= 1000) return (n/1000).toFixed(0)+"K vistas";
+    return n+" vistas";
+  }
+
+  function copyMeta() {
+    const text = `Título: ${currentMeta.title || ""}
+Canal: ${currentMeta.uploader || ""}
+Duración: ${fmtDur(currentMeta.duration)}
+Vistas: ${fmtViews(currentMeta.view_count)}
+Descripción: ${currentMeta.description || ""}`;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector(".btn-copy");
+      btn.textContent = "✓ Copiado";
+      setTimeout(() => btn.textContent = "📋 Copiar metadatos", 2000);
+    });
   }
 
   async function doConvert() {
@@ -276,10 +267,19 @@
       const data = await res.json();
       if (data.error) { showErr(data.error); return; }
 
+      currentMeta = data;
+
       document.getElementById("resThumbnail").src = data.thumbnail || "";
       document.getElementById("resTitle").textContent = data.title;
       document.getElementById("resMeta").textContent =
         [data.uploader, fmtDur(data.duration)].filter(Boolean).join(" · ");
+
+      document.getElementById("metaTitle").textContent = data.title || "";
+      document.getElementById("metaUploader").textContent = data.uploader || "";
+      document.getElementById("metaDuration").textContent = fmtDur(data.duration);
+      document.getElementById("metaViews").textContent = fmtViews(data.view_count);
+      document.getElementById("metaDesc").textContent = data.description || "";
+      document.getElementById("metaBox").style.display = data.title ? "block" : "none";
 
       const grid = document.getElementById("formatsGrid");
       grid.innerHTML = "";
@@ -324,9 +324,12 @@
       });
       if (!res.ok) { const e = await res.json(); showErr(e.error||"Error"); return; }
       const blob = await res.blob();
-      const disp = res.headers.get("Content-Disposition")||"";
-      const m = disp.match(/filename="?(.+?)"?$/);
-      const name = m ? m[1] : "descarga."+fmt.ext;
+      const disp = res.headers.get("Content-Disposition") || "";
+      const match = disp.match(/filename\*?=(?:UTF-8'')?["']?([^"';\n]+)["']?/i);
+      const rawName = match ? decodeURIComponent(match[1].trim()) : null;
+      const name = rawName || (currentMeta.title
+        ? currentMeta.title.replace(/[^a-zA-Z0-9áéíóúñüÁÉÍÓÚÑÜ _-]/g, "").trim() + "." + fmt.ext
+        : "descarga." + fmt.ext);
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = name;
