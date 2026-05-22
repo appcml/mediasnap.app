@@ -21,7 +21,6 @@
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
 
-    /* LAYOUT CON ANUNCIOS A LOS LADOS */
     .page-wrap{display:flex;gap:20px;max-width:1200px;margin:0 auto;padding:0 16px}
     .ad-side{width:160px;flex-shrink:0;padding-top:20px}
     .ad-side-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:600px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-lr;font-size:.65rem;color:#333;position:sticky;top:20px}
@@ -33,13 +32,10 @@
     .logo span{color:var(--accent)}
     .hbadge{font-size:.7rem;background:rgba(230,57,70,.12);color:var(--accent);border:1px solid rgba(230,57,70,.25);padding:4px 12px;border-radius:20px}
 
-    .ad-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:88px;display:flex;align-items:center;justify-content:center;margin:8px 0 24px;position:relative;overflow:hidden}
-    .ad-tag{position:absolute;top:6px;right:10px;font-size:.6rem;color:#444}
-
     .hero{text-align:center;padding:8px 0 28px}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:10px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,2.8vw,1.8rem);font-weight:800;line-height:1.2;letter-spacing:-0.5px;margin-bottom:8px}
     .hero h1 em{color:var(--accent);font-style:normal}
-    .hero p{color:#888;font-size:.95rem;max-width:460px;margin:0 auto 24px;line-height:1.6}
+    .hero p{color:#888;font-size:.83rem;max-width:420px;margin:0 auto 22px;line-height:1.6}
 
     .converter-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:660px;margin:0 auto}
     .input-row{display:flex;gap:10px;margin-bottom:14px}
@@ -90,6 +86,7 @@
     .feat p{font-size:.76rem;color:#888;line-height:1.5}
 
     .ad-mid{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:250px;display:flex;align-items:center;justify-content:center;margin:30px 0;position:relative}
+    .ad-tag{position:absolute;top:6px;right:10px;font-size:.6rem;color:#444}
 
     .sites{margin:30px 0}
     .sites h2{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:14px;text-align:center}
@@ -108,15 +105,13 @@
 
 <div class="page-wrap">
 
-  <!-- ANUNCIO LATERAL IZQUIERDO -->
   <div class="ad-side">
     <div class="ad-side-box">
-      <!-- PEGA TU CÓDIGO DE ANUNCIO VERTICAL AQUÍ -->
+      <!-- ANUNCIO LATERAL IZQUIERDO 160×600 -->
       Anuncio 160×600
     </div>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <div class="main-col">
   <div class="wrap">
 
@@ -124,13 +119,6 @@
       <div class="logo">Media<span>Snap</span></div>
       <div class="hbadge">GRATIS · SIN REGISTRO</div>
     </header>
-
-    <!-- ANUNCIO BANNER TOP -->
-    <div class="ad-wrap">
-      <span class="ad-tag">PUBLICIDAD</span>
-      <!-- PEGA TU CÓDIGO DE ANUNCIO AQUÍ (Adsterra / Propeller Ads) -->
-      <span style="font-size:.73rem;color:#333">[Anuncio 728×90]</span>
-    </div>
 
     <section class="hero">
       <h1>Descarga <em>video y audio</em><br>de cualquier sitio</h1>
@@ -198,10 +186,9 @@
       <div class="feat"><div class="feat-icon">🔒</div><h3>Sin registro</h3><p>Solo pega y descarga.</p></div>
     </div>
 
-    <!-- ANUNCIO CUADRADO MEDIO -->
     <div class="ad-mid">
       <span class="ad-tag">PUBLICIDAD</span>
-      <!-- PEGA TU CÓDIGO DE ANUNCIO AQUÍ -->
+      <!-- ANUNCIO CUADRADO 300×250 -->
       <span style="font-size:.73rem;color:#333">[Anuncio 300×250]</span>
     </div>
 
@@ -214,10 +201,9 @@
   </div>
   </div>
 
-  <!-- ANUNCIO LATERAL DERECHO -->
   <div class="ad-side">
     <div class="ad-side-box">
-      <!-- PEGA TU CÓDIGO DE ANUNCIO VERTICAL AQUÍ -->
+      <!-- ANUNCIO LATERAL DERECHO 160×600 -->
       Anuncio 160×600
     </div>
   </div>
@@ -263,7 +249,7 @@
     const el = document.getElementById("errMsg");
     el.textContent = msg;
     el.style.display = "block";
-    setTimeout(() => el.style.display = "none", 6000);
+    setTimeout(() => el.style.display = "none", 7000);
   }
 
   function fmtDur(s) {
