@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediaSnap — Descargador de Video y Audio</title>
+  <meta name="description" content="Descarga y convierte video y audio gratis. Compatible con YouTube, Instagram, TikTok, Twitter y más.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- ══════════════════════════════════════════════════
+       ANUNCIO HEAD — Pega aquí script de Adsterra/Propeller
+  ═══════════════════════════════════════════════════ -->
+
+  <style>
+    :root {
+      --bg: #0d0d12;
+      --card: #16161f;
+      --card2: #1e1e2a;
+      --accent: #e63946;
+      --accent2: #ff6b6b;
+      --text: #f0f0f5;
+      --muted: #7070888;
+      --border: rgba(255,255,255,0.07);
+      --r: 12px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+    .wrap{max-width:820px;margin:0 auto;padding:0 18px}
+
+    /* ── HEADER ── */
+    header{padding:22px 0 16px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;letter-spacing:-0.5px}
+    .logo span{color:var(--accent)}
+    .hbadge{font-size:0.7rem;background:rgba(230,57,70,0.12);color:var(--accent);border:1px solid rgba(230,57,70,0.25);padding:4px 12px;border-radius:20px}
+
+    /* ── AD BANNER ── */
+    .ad-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:88px;display:flex;align-items:center;justify-content:center;margin:8px 0 30px;position:relative;overflow:hidden}
+    .ad-tag{position:absolute;top:6px;right:10px;font-size:0.6rem;color:#444;letter-spacing:.5px}
+
+    /* ── HERO ── */
+    .hero{text-align:center;padding:8px 0 36px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:12px}
+    .hero h1 em{color:var(--accent);font-style:normal}
+    .hero p{color:#888;font-size:1rem;max-width:460px;margin:0 auto 30px;line-height:1.6}
+
+    /* ── CAJA PRINCIPAL ── */
+    .converter-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:660px;margin:0 auto}
+    .input-row{display:flex;gap:10px;margin-bottom:16px}
+    .url-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:40px;padding:12px 20px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:border-color .2s}
+    .url-input::placeholder{color:#555}
+    .url-input:focus{border-color:rgba(230,57,70,0.5)}
+    .btn-convert{background:var(--accent);color:#fff;border:none;border-radius:40px;padding:12px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:background .2s,transform .2s;white-space:nowrap}
+    .btn-convert:hover{background:#c1121f;transform:scale(1.02)}
+    .btn-convert:disabled{background:#444;cursor:not-allowed;transform:none}
+
+    /* Chips de tipo */
+    .type-chips{display:flex;gap:8px;margin-bottom:0}
+    .chip{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:7px 16px;font-size:0.82rem;cursor:pointer;transition:all .15s;color:#aaa}
+    .chip.active{background:rgba(230,57,70,0.15);border-color:rgba(230,57,70,0.4);color:var(--accent);font-weight:500}
+
+    /* Detección de sitio */
+    .site-detected{display:none;align-items:center;gap:8px;background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);border-radius:8px;padding:8px 14px;font-size:0.82rem;color:#00c896;margin-bottom:14px}
+    .site-dot{width:7px;height:7px;background:#00c896;border-radius:50%;flex-shrink:0}
+
+    /* Resultado */
+    #result-area{display:none;margin-top:22px;border-top:1px solid var(--border);padding-top:20px}
+    .media-preview{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+    .thumb{width:120px;height:78px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--card2)}
+    .media-info{flex:1;min-width:0}
+    .media-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .media-sub{font-size:0.78rem;color:#888}
+
+    .formats-title{font-size:0.75rem;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+    .formats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+    .fmt-btn{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;color:var(--text);font-family:'DM Sans',sans-serif}
+    .fmt-btn:hover{border-color:rgba(230,57,70,0.5);background:rgba(230,57,70,0.06)}
+    .fmt-label{font-size:0.88rem;font-weight:500;display:block;margin-bottom:2px}
+    .fmt-type{font-size:0.72rem;color:#888}
+    .fmt-type.audio{color:#e63946}
+    .fmt-type.video{color:#a78bfa}
+
+    /* Progress */
+    #progress{display:none;text-align:center;padding:16px 0 0}
+    .prog-bar{background:var(--card2);border-radius:20px;height:4px;overflow:hidden;margin:12px 0 8px}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#ff6b6b);border-radius:20px;animation:slide 1.8s ease-in-out infinite;width:50%}
+    @keyframes slide{0%{margin-left:-60%;width:60%}100%{margin-left:110%;width:60%}}
+    .prog-txt{font-size:0.82rem;color:#888}
+
+    /* Error */
+    .err{display:none;background:rgba(230,57,70,0.1);border:1px solid rgba(230,57,70,0.25);color:#ff6b6b;border-radius:10px;padding:12px 16px;font-size:0.88rem;margin-top:14px}
+
+    /* Spinner inline */
+    .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle;margin-right:6px}
+    @keyframes rot{to{transform:rotate(360deg)}}
+
+    /* ── FEATURES ── */
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:44px 0 0}
+    .feat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+    .feat-icon{font-size:1.5rem;margin-bottom:10px}
+    .feat h3{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:4px}
+    .feat p{font-size:0.78rem;color:#888;line-height:1.5}
+
+    /* ── AD MIDDLE ── */
+    .ad-mid{background:var(--card);border:1px solid var(--border);border-radius:var(--r);min-height:260px;display:flex;align-items:center;justify-content:center;margin:36px 0;position:relative}
+
+    /* ── SITES COMPATIBLES ── */
+    .sites{margin:36px 0}
+    .sites h2{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:16px;text-align:center}
+    .site-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+    .site-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:0.82rem;color:#aaa}
+
+    /* ── FOOTER ── */
+    footer{border-top:1px solid var(--border);padding:24px 0;text-align:center;font-size:0.76rem;color:#555;line-height:1.9;margin-top:10px}
+    footer a{color:#555;text-decoration:none}
+    footer a:hover{color:var(--accent)}
+
+    @media(max-width:540px){
+      .input-row{flex-direction:column}
+      .btn-convert{border-radius:10px}
+      .url-input{border-radius:10px}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">Media<span>Snap</span></div>
+    <div class="hbadge">GRATIS · SIN REGISTRO</div>
+  </header>
+
+  <!-- ANUNCIO BANNER TOP (728×90 o responsive) -->
+  <div class="ad-wrap">
+    <span class="ad-tag">PUBLICIDAD</span>
+    <!-- ★ PEGA TU CÓDIGO DE ANUNCIO AQUÍ (Adsterra / Propeller Ads) ★ -->
+    <span style="font-size:.75rem;color:#333">[Anuncio 728×90]</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Descarga <em>video y audio</em><br>de cualquier sitio</h1>
+    <p>Pega el enlace, elige el formato y descarga al instante. Compatible con YouTube, TikTok, Instagram y más.</p>
+  </section>
+
+  <!-- CAJA CONVERTIDOR -->
+  <div class="converter-box">
+
+    <div class="input-row">
+      <input class="url-input" id="urlInput" type="url"
+        placeholder="Pega aquí el enlace del video..."
+        autocomplete="off" oninput="detectSite(this.value)" />
+      <button class="btn-convert" id="btnConvert" onclick="doConvert()">Convertir</button>
+    </div>
+
+    <!-- Detección automática de sitio -->
+    <div class="site-detected" id="siteDetected">
+      <div class="site-dot"></div>
+      <span id="siteLabel"></span>
+    </div>
+
+    <!-- Chips MP3 / MP4 -->
+    <div class="type-chips">
+      <div class="chip active" id="chipMP3" onclick="setChip('mp3')">🎵 MP3</div>
+      <div class="chip" id="chipMP4" onclick="setChip('mp4')">🎬 MP4</div>
+      <div class="chip" id="chipBoth" onclick="setChip('both')">↓ Ambos</div>
+    </div>
+
+    <!-- Error -->
+    <div class="err" id="errMsg"></div>
+
+    <!-- Resultado -->
+    <div id="result-area">
+      <div class="media-preview">
+        <img class="thumb" id="resThumbnail" src="" alt="thumbnail"/>
+        <div class="media-info">
+          <div class="media-title" id="resTitle"></div>
+          <div class="media-sub" id="resMeta"></div>
+        </div>
+      </div>
+      <div class="formats-title">Elige formato</div>
+      <div class="formats-grid" id="formatsGrid"></div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress">
+      <div class="prog-bar"><div class="prog-fill"></div></div>
+      <div class="prog-txt">Procesando, espera un momento…</div>
+    </div>
+
+  </div>
+
+  <!-- SITES COMPATIBLES -->
+  <div class="sites">
+    <h2>Sitios compatibles</h2>
+    <div class="site-list">
+      <div class="site-pill">YouTube</div>
+      <div class="site-pill">TikTok</div>
+      <div class="site-pill">Instagram</div>
+      <div class="site-pill">Twitter / X</div>
+      <div class="site-pill">Facebook</div>
+      <div class="site-pill">Vimeo</div>
+      <div class="site-pill">Dailymotion</div>
+      <div class="site-pill">Reddit</div>
+      <div class="site-pill">SoundCloud</div>
+      <div class="site-pill">+1000 sitios más</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feat"><div class="feat-icon">⚡</div><h3>Descarga rápida</h3><p>Sin colas ni esperas. Procesamiento directo.</p></div>
+    <div class="feat"><div class="feat-icon">🎵</div><h3>Audio MP3</h3><p>Alta calidad 192kbps desde cualquier video.</p></div>
+    <div class="feat"><div class="feat-icon">🎬</div><h3>Video HD</h3><p>360p, 480p, 720p y 1080p cuando disponible.</p></div>
+    <div class="feat"><div class="feat-icon">🔒</div><h3>Sin registro</h3><p>No pedimos datos personales. Solo pega y listo.</p></div>
+  </div>
+
+  <!-- ANUNCIO CUADRADO MEDIO (300×250) -->
+  <div class="ad-mid">
+    <span class="ad-tag">PUBLICIDAD</span>
+    <!-- ★ PEGA TU CÓDIGO DE ANUNCIO AQUÍ ★ -->
+    <span style="font-size:.75rem;color:#333">[Anuncio 300×250]</span>
+  </div>
+
+  <footer>
+    <p>MediaSnap © 2025 · Herramienta gratuita de conversión multimedia</p>
+    <p><a href="terminos.html">Términos</a> &nbsp;·&nbsp; <a href="privacidad.html">Privacidad</a> &nbsp;·&nbsp; <a href="dmca.html">DMCA</a></p>
+    <p style="margin-top:8px;font-size:.68rem">Este servicio no almacena archivos. Solo facilita la conversión de medios públicamente accesibles.</p>
+  </footer>
+
+</div>
+<script>
+  // ════════════════════════════════════════════════
+  // ⚠️ CAMBIA ESTA URL por la de tu backend en Render
+  // ════════════════════════════════════════════════
+  const API = "https://TU-API.onrender.com";
+
+  let selectedType = "mp3";
+
+  const SITES = [
+    { match: /youtube\.com|youtu\.be/, name: "YouTube detectado ✓", icon: "▶" },
+    { match: /tiktok\.com/,            name: "TikTok detectado ✓",   icon: "♪" },
+    { match: /instagram\.com/,         name: "Instagram detectado ✓",icon: "◈" },
+    { match: /twitter\.com|x\.com/,    name: "X / Twitter detectado ✓", icon: "✕" },
+    { match: /facebook\.com|fb\.watch/,name: "Facebook detectado ✓", icon: "f" },
+    { match: /vimeo\.com/,             name: "Vimeo detectado ✓",    icon: "V" },
+    { match: /soundcloud\.com/,        name: "SoundCloud detectado ✓",icon: "☁" },
+    { match: /reddit\.com/,            name: "Reddit detectado ✓",   icon: "◉" },
+    { match: /dailymotion\.com/,       name: "Dailymotion detectado ✓",icon: "◐"},
+  ];
+
+  function detectSite(val) {
+    const el = document.getElementById("siteDetected");
+    const lbl = document.getElementById("siteLabel");
+    const match = SITES.find(s => s.match.test(val));
+    if (match && val.startsWith("http")) {
+      lbl.textContent = match.name;
+      el.style.display = "flex";
+    } else {
+      el.style.display = "none";
+    }
+  }
+
+  function setChip(type) {
+    selectedType = type;
+    ["mp3","mp4","both"].forEach(t => {
+      document.getElementById("chip"+t.charAt(0).toUpperCase()+t.slice(1))
+        .classList.toggle("active", t === type);
+    });
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById("errMsg");
+    el.textContent = msg;
+    el.style.display = "block";
+    setTimeout(() => el.style.display = "none", 6000);
+  }
+
+  function fmtDur(s) {
+    if (!s) return "";
+    return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+  }
+
+  async function doConvert() {
+    const url = document.getElementById("urlInput").value.trim();
+    if (!url || !url.startsWith("http")) { showErr("Pega una URL válida (debe comenzar con http)"); return; }
+
+    const btn = document.getElementById("btnConvert");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span>Analizando…';
+    document.getElementById("result-area").style.display = "none";
+    document.getElementById("errMsg").style.display = "none";
+
+    try {
+      const res = await fetch(API+"/info", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({url})
+      });
+      const data = await res.json();
+      if (data.error) { showErr(data.error); return; }
+
+      document.getElementById("resThumbnail").src = data.thumbnail || "";
+      document.getElementById("resTitle").textContent = data.title;
+      document.getElementById("resMeta").textContent =
+        [data.uploader, fmtDur(data.duration)].filter(Boolean).join(" · ");
+
+      const grid = document.getElementById("formatsGrid");
+      grid.innerHTML = "";
+
+      let formats = [];
+
+      if (selectedType === "mp3" || selectedType === "both") {
+        formats.push({format_id:"bestaudio", label:"Audio MP3", type:"audio", ext:"mp3"});
+      }
+      if (selectedType === "mp4" || selectedType === "both") {
+        (data.formats||[]).forEach(f => formats.push(f));
+        if (!data.formats || data.formats.length === 0) {
+          formats.push({format_id:"bestvideo", label:"Video MP4", type:"video", ext:"mp4"});
+        }
+      }
+
+      formats.forEach(f => {
+        const b = document.createElement("button");
+        b.className = "fmt-btn";
+        b.innerHTML = `<span class="fmt-label">${f.label}</span><span class="fmt-type ${f.type}">${f.type==="audio"?"🎵 Audio":"🎬 Video"}</span>`;
+        b.onclick = () => doDownload(url, f);
+        grid.appendChild(b);
+      });
+
+      document.getElementById("result-area").style.display = "block";
+
+    } catch(e) {
+      showErr("No se pudo conectar con el servidor. ¿Está activo el backend en Render?");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Convertir";
+    }
+  }
+
+  async function doDownload(url, fmt) {
+    const prog = document.getElementById("progress");
+    prog.style.display = "block";
+    try {
+      const res = await fetch(API+"/download", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({url, format_id: fmt.format_id, type: fmt.type})
+      });
+      if (!res.ok) { const e = await res.json(); showErr(e.error||"Error"); return; }
+      const blob = await res.blob();
+      const disp = res.headers.get("Content-Disposition")||"";
+      const m = disp.match(/filename="?(.+?)"?$/);
+      const name = m ? m[1] : "descarga."+fmt.ext;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+    } catch(e) {
+      showErr("Error durante la descarga.");
+    } finally {
+      prog.style.display = "none";
+    }
+  }
+
+  document.getElementById("urlInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") doConvert();
+  });
+</script>
+</body>
+</html>
